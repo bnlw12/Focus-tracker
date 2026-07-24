@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17251f">
+  <meta name="description" content="A simple personal target and habit progress tracker.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Focus</title>
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">PERSONAL TARGET TRACKER</p>
+      <h1>Focus</h1>
+    </div>
+    <button id="installButton" class="button secondary small hidden" type="button">Install app</button>
+  </header>
+
+  <main id="app">
+    <section id="todayView" class="view active" aria-labelledby="todayTab">
+      <div id="focusSummary"></div>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">QUICK LOG</p>
+          <h2>Your priorities</h2>
+        </div>
+        <button class="button secondary small" data-open-dialog="logDialog" type="button">Log another date</button>
+      </div>
+      <div id="targetCards" class="target-grid"></div>
+    </section>
+
+    <section id="statsView" class="view" aria-labelledby="statsTab">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">LONG VIEW</p>
+          <h2>Statistics</h2>
+        </div>
+      </div>
+      <div id="statsOverview"></div>
+      <div id="statsTable"></div>
+    </section>
+
+    <section id="manageView" class="view" aria-labelledby="manageTab">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SETUP</p>
+          <h2>Manage your focus</h2>
+        </div>
+        <button class="button primary small" data-open-dialog="targetDialog" type="button">Add target</button>
+      </div>
+
+      <article class="panel">
+        <h3>Current focus period</h3>
+        <form id="focusForm" class="form-grid">
+          <label>
+            Name
+            <input id="focusName" name="focusName" required maxlength="60">
+          </label>
+          <label>
+            Start date
+            <input id="focusStart" name="focusStart" type="date" required>
+          </label>
+          <label>
+            End date
+            <input id="focusEnd" name="focusEnd" type="date" required>
+          </label>
+          <div class="form-actions">
+            <button class="button primary" type="submit">Save focus period</button>
+            <button id="newFocusButton" class="button secondary" type="button">Start a new focus period</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Targets</h3>
+            <p class="muted">Pause or edit a priority without losing its old statistics.</p>
+          </div>
+        </div>
+        <div id="manageTargets" class="manage-list"></div>
+      </article>
+
+      <article class="panel">
+        <h3>Past focus periods</h3>
+        <div id="focusHistory" class="history-list"></div>
+      </article>
+
+      <article class="panel">
+        <h3>Data and backup</h3>
+        <p class="muted">Your information is saved in this browser on this device. Export a backup occasionally, especially before changing phone or clearing browser data.</p>
+        <div class="button-row">
+          <button id="exportButton" class="button secondary" type="button">Export backup</button>
+          <label class="button secondary file-button">
+            Import backup
+            <input id="importInput" type="file" accept="application/json">
+          </label>
+          <button id="resetButton" class="button danger" type="button">Reset everything</button>
+        </div>
+      </article>
+
+      <article class="panel install-help">
+        <h3>Install on Android</h3>
+        <p class="muted">Open the live site in Chrome, tap the three-dot menu, then choose <strong>Install app</strong> or <strong>Add to Home screen</strong>. It will open like a normal app and continue working offline.</p>
+      </article>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <button id="todayTab" class="nav-item active" data-view="todayView" type="button">
+      <span class="nav-icon" aria-hidden="true">✓</span>
+      <span>Today</span>
+    </button>
+    <button id="statsTab" class="nav-item" data-view="statsView" type="button">
+      <span class="nav-icon" aria-hidden="true">▥</span>
+      <span>Stats</span>
+    </button>
+    <button id="manageTab" class="nav-item" data-view="manageView" type="button">
+      <span class="nav-icon" aria-hidden="true">⚙</span>
+      <span>Manage</span>
+    </button>
+  </nav>
+
+  <dialog id="targetDialog">
+    <form id="targetForm" method="dialog">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">PRIORITY</p>
+          <h2 id="targetDialogTitle">Add target</h2>
+        </div>
+        <button class="icon-button" value="cancel" aria-label="Close" type="submit">×</button>
+      </div>
+      <input id="targetId" type="hidden">
+      <div class="form-grid">
+        <label>
+          Name
+          <input id="targetName" required maxlength="50" placeholder="e.g. Floss">
+        </label>
+        <label>
+          Emoji
+          <input id="targetEmoji" maxlength="4" placeholder="✓">
+        </label>
+        <label>
+          Goal type
+          <select id="targetGoalMode">
+            <option value="weekly">Times per week</option>
+            <option value="period">Total in this focus period</option>
+          </select>
+        </label>
+        <label>
+          Goal
+          <input id="targetGoalValue" type="number" required min="1" max="9999" step="1" value="3">
+        </label>
+      </div>
+      <p id="goalPreview" class="callout"></p>
+      <div class="form-actions">
+        <button class="button primary" value="default" type="submit">Save target</button>
+        <button class="button secondary" value="cancel" type="submit">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="logDialog">
+    <form id="logForm" method="dialog">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">ADD ENTRY</p>
+          <h2>Log activity</h2>
+        </div>
+        <button class="icon-button" value="cancel" aria-label="Close" type="submit">×</button>
+      </div>
+      <div class="form-grid">
+        <label>
+          Target
+          <select id="logTarget" required></select>
+        </label>
+        <label>
+          Date
+          <input id="logDate" type="date" required>
+        </label>
+        <label>
+          Number of times
+          <input id="logQuantity" type="number" min="1" max="100" step="1" value="1" required>
+        </label>
+      </div>
+      <div class="form-actions">
+        <button class="button primary" value="default" type="submit">Add entry</button>
+        <button class="button secondary" value="cancel" type="submit">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
