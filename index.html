@@ -8,7 +8,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles-v2-3.css">
   <title>Focus</title>
 </head>
 <body>
@@ -25,6 +25,11 @@
 
   <main id="app">
     <section id="todayView" class="view active" aria-labelledby="todayTab">
+      <div id="bootFallback" class="boot-fallback" hidden>
+        <strong>Focus has not finished loading.</strong>
+        <span>This normally means an older offline file is still cached. Close this tab, reopen the site and refresh once. Your saved records are not deleted.</span>
+        <button type="button" onclick="location.reload()">Reload Focus</button>
+      </div>
       <div id="briefingCard"></div>
       <div id="focusMeta" class="focus-meta"></div>
       <div id="dailyContextCard"></div>
@@ -140,7 +145,7 @@
 
       <article class="panel app-about">
         <h3>About</h3>
-        <p class="muted">Focus 2.0 · Local-first · No account or cloud database.</p>
+        <p id="appVersionText" class="muted">Focus 2.3.0 · Local-first · No account or cloud database.</p><p id="dataStatus" class="small-meta"></p>
       </article>
     </section>
   </main>
@@ -294,6 +299,25 @@
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="./app.js"></script>
+  <script>
+    // Register a uniquely named service worker before the main app loads.
+    // This breaks out of stale Version 1 caches that can otherwise pair new HTML with old JavaScript.
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker-v2-3.js").catch(console.error);
+    }
+
+    window.addEventListener("error", () => {
+      const fallback = document.getElementById("bootFallback");
+      if (fallback) fallback.hidden = false;
+    });
+
+    window.setTimeout(() => {
+      if (document.documentElement.dataset.focusReady !== "true") {
+        const fallback = document.getElementById("bootFallback");
+        if (fallback) fallback.hidden = false;
+      }
+    }, 3500);
+  </script>
+  <script src="./app-v2-3.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 {
   "name": "Focus \u2013 Personal Target Tracker",
   "short_name": "Focus",
-  "description": "Track themed priorities, recoverability and personal context without a cloud account.",
+  "description": "A calm personal target tracker with verified logging, themes, context insights and local recovery backups.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
