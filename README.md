@@ -1,50 +1,43 @@
-# Focus – personal target tracker
+# Focus 2.1
 
-A small installable browser app for tracking personal priorities over a focus period.
+An installable, local-first browser app for tracking personal priorities over a focus period.
 
-## What it does
+## Version 2 features
 
-- Tracks 4–10 personal targets such as flossing, physio or eating well
-- Supports weekly targets or a single target for the whole focus period
-- Shows progress, remaining repetitions, current run rate and the rate needed from now
-- Shows totals for the current focus period, current calendar year and all time
-- Keeps past focus periods
-- Works offline after the first visit
-- Saves data locally in the browser
-- Exports and imports a JSON backup
+- Calm editorial design
+- Health, Personal and Work themes, plus custom themes
+- Total-over-period goals and frequency goals such as 3 times per week across 90 days
+- Recoverability status based on the pace needed from today
+- A selective written briefing with Auto / Always / Never inclusion controls
+- Optional daily context tracking for work stress, alcohol units and illness
+- Context comparisons for the same day and each of the following seven days, with sample sizes
+- Current-focus, annual and all-time totals
+- Automatic local recovery snapshot on the first opening each day, retaining up to 30
+- Manual JSON export/import
+- Automatic migration from the original Version 1 app and its backups
+- Offline use after first load
 
-## Put it live with GitHub Pages — no command line required
+## Important data notes
 
-1. Create a free GitHub account at github.com.
-2. Click **New repository**.
-3. Name it `focus-tracker`.
-4. Choose **Public**, tick **Add a README file**, then create the repository.
-5. In the repository, click **Add file → Upload files**.
-6. Drag in all the files and the `icons` folder from this package. Commit the upload.
-7. Open **Settings → Pages**.
-8. Under **Build and deployment**, choose:
-   - Source: **Deploy from a branch**
-   - Branch: **main**
-   - Folder: **/(root)**
-9. Click **Save**.
-10. GitHub will show the live address after publishing. It will usually be:
-    `https://YOUR-GITHUB-USERNAME.github.io/focus-tracker/`
+The app still stores working data on the device, under the same browser-storage key as Version 1. Replacing the site files at the same GitHub Pages address should preserve and migrate existing records automatically.
 
-## Install it on Android
+Export a Version 1 backup before updating. Do not clear Chrome site data or uninstall the app as part of the update.
 
-1. Open the live address in Chrome.
-2. Tap Chrome's three-dot menu.
-3. Tap **Install app** or **Add to Home screen**.
-4. The Focus icon will appear with your other apps.
+Daily recovery points are also local to the device. They help with accidental edits but do not protect against loss, reset, or clearing browser data. Manual exports remain the no-cloud safety copy.
 
-## Important limitation
+## Replace the existing GitHub Pages version
 
-The app has no account or cloud database. Your data is stored in the browser on the device you use. Export a backup from **Manage → Data and backup** before changing phones, clearing Chrome data, or testing a new version.
+1. Export a backup from the current app.
+2. Extract the `focus_tracker_v2_github_upload.zip` package.
+3. In the existing GitHub repository, choose **Add file → Upload files**.
+4. Upload all files from the extracted folder. They must sit in the repository root, alongside `index.html`.
+5. Commit the changes to `main`.
+6. Keep GitHub Pages set to deploy from `main` and `/(root)`.
+7. Wait for Pages to finish publishing.
+8. Open the live app. The first open may still show the old cached version; close and reopen it or refresh once more.
+9. Open **Manage** and confirm it says **Focus 2.0**. Check your targets and totals, then export a fresh Version 2 backup.
 
-## Updating it later
 
-Upload replacement files to the same repository. GitHub Pages republishes the site. The service worker caches the app for offline use, so after an update you may need to close and reopen the installed app once or twice.
+## Context analysis window
 
-## Sensible next upgrade
-
-For automatic sync between phone and computer, add a small hosted database and sign-in service such as Supabase or Firebase. That is a second-stage change rather than a requirement for the first working version.
+Focus 2.1 checks each selected target on the same day as a context record and at +1, +2, +3, +4, +5, +6 and +7 days. Longer windows are deliberately not used by default because overlapping stress, illness and drinking episodes become increasingly difficult to interpret.

@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#17251f">
-  <meta name="description" content="A simple personal target and habit progress tracker.">
+  <meta name="theme-color" content="#f6f3eb">
+  <meta name="description" content="A calm personal target tracker with themes, context insights and local recovery backups.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
@@ -17,20 +17,18 @@
       <p class="eyebrow">PERSONAL TARGET TRACKER</p>
       <h1>Focus</h1>
     </div>
-    <button id="installButton" class="button secondary small hidden" type="button">Install app</button>
+    <div class="header-actions">
+      <button id="contextHeaderButton" class="round-button" type="button" aria-label="Add daily context">☼</button>
+      <button id="installButton" class="button secondary small hidden" type="button">Install</button>
+    </div>
   </header>
 
   <main id="app">
     <section id="todayView" class="view active" aria-labelledby="todayTab">
-      <div id="focusSummary"></div>
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">QUICK LOG</p>
-          <h2>Your priorities</h2>
-        </div>
-        <button class="button secondary small" data-open-dialog="logDialog" type="button">Log another date</button>
-      </div>
-      <div id="targetCards" class="target-grid"></div>
+      <div id="briefingCard"></div>
+      <div id="focusMeta" class="focus-meta"></div>
+      <div id="dailyContextCard"></div>
+      <div id="themeSections"></div>
     </section>
 
     <section id="statsView" class="view" aria-labelledby="statsTab">
@@ -41,34 +39,32 @@
         </div>
       </div>
       <div id="statsOverview"></div>
-      <div id="statsTable"></div>
+      <div id="targetStats"></div>
+      <div id="contextInsights"></div>
     </section>
 
     <section id="manageView" class="view" aria-labelledby="manageTab">
       <div class="section-heading">
         <div>
           <p class="eyebrow">SETUP</p>
-          <h2>Manage your focus</h2>
+          <h2>Manage Focus</h2>
         </div>
-        <button class="button primary small" data-open-dialog="targetDialog" type="button">Add target</button>
+        <button class="button primary small" data-open-target="" type="button">Add target</button>
       </div>
 
       <article class="panel">
         <h3>Current focus period</h3>
         <form id="focusForm" class="form-grid">
-          <label>
-            Name
-            <input id="focusName" name="focusName" required maxlength="60">
+          <label class="span-2">Name
+            <input id="focusName" required maxlength="60">
           </label>
-          <label>
-            Start date
-            <input id="focusStart" name="focusStart" type="date" required>
+          <label>Start date
+            <input id="focusStart" type="date" required>
           </label>
-          <label>
-            End date
-            <input id="focusEnd" name="focusEnd" type="date" required>
+          <label>End date
+            <input id="focusEnd" type="date" required>
           </label>
-          <div class="form-actions">
+          <div class="form-actions span-2">
             <button class="button primary" type="submit">Save focus period</button>
             <button id="newFocusButton" class="button secondary" type="button">Start a new focus period</button>
           </div>
@@ -79,10 +75,62 @@
         <div class="panel-heading">
           <div>
             <h3>Targets</h3>
-            <p class="muted">Pause or edit a priority without losing its old statistics.</p>
+            <p class="muted">Edit or pause a target without losing its history.</p>
           </div>
+          <button class="button secondary small" data-open-target="" type="button">Add</button>
         </div>
         <div id="manageTargets" class="manage-list"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Themes</h3>
+            <p class="muted">Health, Personal and Work are included. You can add another.</p>
+          </div>
+          <button id="addThemeButton" class="button secondary small" type="button">Add theme</button>
+        </div>
+        <div id="manageThemes" class="manage-list"></div>
+      </article>
+
+      <article class="panel">
+        <h3>Briefing and context</h3>
+        <div class="form-grid">
+          <label>Automatic briefing threshold
+            <div class="inline-input">
+              <input id="briefingThreshold" type="number" min="1" max="999" step="1">
+              <span>occurrences</span>
+            </div>
+          </label>
+          <label class="toggle-label">
+            <input id="contextEnabled" type="checkbox">
+            <span><strong>Daily context tracking</strong><small>Work stress, alcohol units and illness.</small></span>
+          </label>
+        </div>
+        <p class="muted">Targets below the threshold stay out of the written briefing unless they become urgent. Each target can override this.</p>
+      </article>
+
+      <article class="panel">
+        <h3>Local protection</h3>
+        <div id="protectionStatus"></div>
+        <p class="muted">A recovery snapshot is created the first time the app opens each day. Up to 30 are kept on this device. They are not protection against losing or resetting the phone.</p>
+        <div class="button-row">
+          <button id="restoreButton" class="button secondary" type="button">Recovery points</button>
+          <button id="persistentButton" class="button secondary" type="button">Request stronger storage</button>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h3>Export and import</h3>
+        <p class="muted">Export remains the safest no-cloud backup. Version 1 backups from the original app are supported.</p>
+        <div class="button-row">
+          <button id="exportButton" class="button secondary" type="button">Export backup</button>
+          <label class="button secondary file-button">Import backup
+            <input id="importInput" type="file" accept="application/json">
+          </label>
+          <button id="resetButton" class="button danger" type="button">Reset everything</button>
+        </div>
+        <div id="backupMeta" class="small-meta"></div>
       </article>
 
       <article class="panel">
@@ -90,73 +138,69 @@
         <div id="focusHistory" class="history-list"></div>
       </article>
 
-      <article class="panel">
-        <h3>Data and backup</h3>
-        <p class="muted">Your information is saved in this browser on this device. Export a backup occasionally, especially before changing phone or clearing browser data.</p>
-        <div class="button-row">
-          <button id="exportButton" class="button secondary" type="button">Export backup</button>
-          <label class="button secondary file-button">
-            Import backup
-            <input id="importInput" type="file" accept="application/json">
-          </label>
-          <button id="resetButton" class="button danger" type="button">Reset everything</button>
-        </div>
-      </article>
-
-      <article class="panel install-help">
-        <h3>Install on Android</h3>
-        <p class="muted">Open the live site in Chrome, tap the three-dot menu, then choose <strong>Install app</strong> or <strong>Add to Home screen</strong>. It will open like a normal app and continue working offline.</p>
+      <article class="panel app-about">
+        <h3>About</h3>
+        <p class="muted">Focus 2.0 · Local-first · No account or cloud database.</p>
       </article>
     </section>
   </main>
 
   <nav class="bottom-nav" aria-label="Main navigation">
-    <button id="todayTab" class="nav-item active" data-view="todayView" type="button">
-      <span class="nav-icon" aria-hidden="true">✓</span>
-      <span>Today</span>
-    </button>
-    <button id="statsTab" class="nav-item" data-view="statsView" type="button">
-      <span class="nav-icon" aria-hidden="true">▥</span>
-      <span>Stats</span>
-    </button>
-    <button id="manageTab" class="nav-item" data-view="manageView" type="button">
-      <span class="nav-icon" aria-hidden="true">⚙</span>
-      <span>Manage</span>
-    </button>
+    <button id="todayTab" class="nav-item active" data-view="todayView" type="button"><span class="nav-icon">☼</span><span>Today</span></button>
+    <button id="statsTab" class="nav-item" data-view="statsView" type="button"><span class="nav-icon">▥</span><span>Stats</span></button>
+    <button id="manageTab" class="nav-item" data-view="manageView" type="button"><span class="nav-icon">⚙</span><span>Manage</span></button>
   </nav>
 
   <dialog id="targetDialog">
     <form id="targetForm" method="dialog">
       <div class="dialog-heading">
-        <div>
-          <p class="eyebrow">PRIORITY</p>
-          <h2 id="targetDialogTitle">Add target</h2>
-        </div>
-        <button class="icon-button" value="cancel" aria-label="Close" type="submit">×</button>
+        <div><p class="eyebrow">PRIORITY</p><h2 id="targetDialogTitle">New target</h2></div>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close">×</button>
       </div>
       <input id="targetId" type="hidden">
       <div class="form-grid">
-        <label>
-          Name
-          <input id="targetName" required maxlength="50" placeholder="e.g. Floss">
+        <label class="span-2">Target name
+          <input id="targetName" required maxlength="60" placeholder="e.g. Weights">
         </label>
-        <label>
-          Emoji
-          <input id="targetEmoji" maxlength="4" placeholder="✓">
+        <label>Emoji or symbol
+          <input id="targetEmoji" maxlength="6" placeholder="✓">
         </label>
-        <label>
-          Goal type
-          <select id="targetGoalMode">
-            <option value="weekly">Times per week</option>
-            <option value="period">Total in this focus period</option>
-          </select>
+        <label>Theme
+          <select id="targetTheme" required></select>
         </label>
-        <label>
-          Goal
-          <input id="targetGoalValue" type="number" required min="1" max="9999" step="1" value="3">
+        <fieldset class="span-2 choice-fieldset">
+          <legend>Goal type</legend>
+          <label class="choice-card">
+            <input type="radio" name="goalMode" value="period">
+            <span><strong>Total over focus period</strong><small>For example, 26 times by the end of this focus.</small></span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="goalMode" value="frequency">
+            <span><strong>Frequency across focus period</strong><small>For example, 3 times per week throughout the focus.</small></span>
+          </label>
+        </fieldset>
+        <label id="periodGoalWrap" class="span-2">Total target
+          <div class="inline-input"><input id="periodGoalValue" type="number" min="1" max="9999" step="1"><span>times this focus</span></div>
         </label>
+        <div id="frequencyGoalWrap" class="frequency-row span-2">
+          <label>Frequency
+            <input id="frequencyGoalValue" type="number" min="0.1" max="999" step="0.1">
+          </label>
+          <label>Per
+            <select id="frequencyUnit"><option value="day">day</option><option value="week">week</option><option value="month">month</option></select>
+          </label>
+        </div>
+        <div id="goalPreview" class="callout span-2"></div>
+        <fieldset class="span-2 segmented-fieldset">
+          <legend>Include in top briefing</legend>
+          <div class="segmented">
+            <label><input type="radio" name="briefingMode" value="auto"><span>Auto</span></label>
+            <label><input type="radio" name="briefingMode" value="always"><span>Always</span></label>
+            <label><input type="radio" name="briefingMode" value="never"><span>Never</span></label>
+          </div>
+          <p class="field-help">Auto excludes low-frequency goals unless they become urgent.</p>
+        </fieldset>
       </div>
-      <p id="goalPreview" class="callout"></p>
       <div class="form-actions">
         <button class="button primary" value="default" type="submit">Save target</button>
         <button class="button secondary" value="cancel" type="submit">Cancel</button>
@@ -167,30 +211,85 @@
   <dialog id="logDialog">
     <form id="logForm" method="dialog">
       <div class="dialog-heading">
-        <div>
-          <p class="eyebrow">ADD ENTRY</p>
-          <h2>Log activity</h2>
-        </div>
-        <button class="icon-button" value="cancel" aria-label="Close" type="submit">×</button>
+        <div><p class="eyebrow">ADD ENTRY</p><h2>Log activity</h2></div>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close">×</button>
       </div>
       <div class="form-grid">
-        <label>
-          Target
-          <select id="logTarget" required></select>
-        </label>
-        <label>
-          Date
-          <input id="logDate" type="date" required>
-        </label>
-        <label>
-          Number of times
-          <input id="logQuantity" type="number" min="1" max="100" step="1" value="1" required>
-        </label>
+        <label class="span-2">Target<select id="logTarget" required></select></label>
+        <label>Date<input id="logDate" type="date" required></label>
+        <label>Number of times<input id="logQuantity" type="number" min="1" max="100" step="1" value="1" required></label>
       </div>
       <div class="form-actions">
         <button class="button primary" value="default" type="submit">Add entry</button>
         <button class="button secondary" value="cancel" type="submit">Cancel</button>
       </div>
+    </form>
+  </dialog>
+
+  <dialog id="contextDialog">
+    <form id="contextForm" method="dialog">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">DAILY CONTEXT</p><h2>Three quick questions</h2></div>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close">×</button>
+      </div>
+      <label class="context-date-label">Date<input id="contextDate" type="date" required></label>
+      <fieldset class="option-fieldset">
+        <legend>How stressful was work?</legend>
+        <div class="option-grid" id="stressOptions">
+          <label><input type="radio" name="stress" value="not_workday"><span>Not a workday</span></label>
+          <label><input type="radio" name="stress" value="low"><span>Low</span></label>
+          <label><input type="radio" name="stress" value="manageable"><span>Manageable</span></label>
+          <label><input type="radio" name="stress" value="high"><span>High</span></label>
+          <label><input type="radio" name="stress" value="extreme"><span>Extreme</span></label>
+        </div>
+      </fieldset>
+      <label>Approximate UK alcohol units
+        <input id="alcoholUnits" type="number" min="0" max="100" step="0.1" inputmode="decimal" placeholder="0">
+      </label>
+      <div class="quick-units" aria-label="Quick alcohol unit choices">
+        <button type="button" data-units="0">0</button><button type="button" data-units="2">2</button><button type="button" data-units="4">4</button><button type="button" data-units="6">6</button>
+      </div>
+      <fieldset class="option-fieldset">
+        <legend>How well were you?</legend>
+        <div class="option-grid" id="illnessOptions">
+          <label><input type="radio" name="illness" value="well"><span>Well</span></label>
+          <label><input type="radio" name="illness" value="mild"><span>Mild symptoms</span></label>
+          <label><input type="radio" name="illness" value="reduced"><span>Ill — activity reduced</span></label>
+          <label><input type="radio" name="illness" value="significant"><span>Significantly ill</span></label>
+        </div>
+      </fieldset>
+      <p class="callout">The app looks for associations, not proof of cause. It waits for enough observations before drawing attention to a pattern.</p>
+      <div class="form-actions">
+        <button class="button primary" value="default" type="submit">Save context</button>
+        <button class="button secondary" value="cancel" type="submit">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="themeDialog">
+    <form id="themeForm" method="dialog">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">GROUP</p><h2>Add theme</h2></div>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close">×</button>
+      </div>
+      <div class="form-grid">
+        <label class="span-2">Theme name<input id="themeName" maxlength="30" required placeholder="e.g. Learning"></label>
+        <label>Symbol<input id="themeIcon" maxlength="6" placeholder="✦"></label>
+        <label>Accent<select id="themeColour"><option value="green">Green</option><option value="plum">Plum</option><option value="blue">Blue</option><option value="amber">Amber</option><option value="teal">Teal</option><option value="slate">Slate</option></select></label>
+      </div>
+      <div class="form-actions"><button class="button primary" value="default" type="submit">Add theme</button><button class="button secondary" value="cancel" type="submit">Cancel</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="recoveryDialog">
+    <form method="dialog">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">LOCAL SAFETY NET</p><h2>Recovery points</h2></div>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close">×</button>
+      </div>
+      <p class="muted">Restoring replaces the current on-device data. Export first if you may want to return to it.</p>
+      <div id="recoveryList" class="recovery-list"></div>
+      <div class="form-actions"><button class="button secondary" value="cancel" type="submit">Close</button></div>
     </form>
   </dialog>
 

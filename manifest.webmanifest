@@ -1,12 +1,12 @@
 {
   "name": "Focus \u2013 Personal Target Tracker",
   "short_name": "Focus",
-  "description": "Track personal targets, progress, run rate and long-term totals.",
+  "description": "Track themed priorities, recoverability and personal context without a cloud account.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f3f1ea",
-  "theme_color": "#17251f",
+  "background_color": "#f6f3eb",
+  "theme_color": "#f6f3eb",
   "orientation": "portrait-primary",
   "icons": [
     {
