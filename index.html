@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f6f3eb">
   <meta name="description" content="A calm personal target tracker with themes, context insights and local recovery backups.">
+  <meta name="focus-app-version" content="3.1.0">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <link rel="stylesheet" href="./styles-v2-3.css">
+  <link rel="stylesheet" href="./styles-v3-1.css">
   <title>Focus</title>
 </head>
 <body>
@@ -18,7 +19,6 @@
       <h1>Focus</h1>
     </div>
     <div class="header-actions">
-      <button id="contextHeaderButton" class="round-button" type="button" aria-label="Add daily context">☼</button>
       <button id="installButton" class="button secondary small hidden" type="button">Install</button>
     </div>
   </header>
@@ -72,6 +72,7 @@
           <div class="form-actions span-2">
             <button class="button primary" type="submit">Save focus period</button>
             <button id="newFocusButton" class="button secondary" type="button">Start a new focus period</button>
+            <button id="recommendationsButton" class="button secondary" type="button">Review target recommendations</button>
           </div>
         </form>
       </article>
@@ -109,7 +110,7 @@
           </label>
           <label class="toggle-label">
             <input id="contextEnabled" type="checkbox">
-            <span><strong>Daily context tracking</strong><small>Work stress, alcohol units and illness.</small></span>
+            <span><strong>Daily context tracking</strong><small>Work stress, alcohol units, illness and bedtime.</small></span>
           </label>
         </div>
         <p class="muted">Targets below the threshold stay out of the written briefing unless they become urgent. Each target can override this.</p>
@@ -143,9 +144,21 @@
         <div id="focusHistory" class="history-list"></div>
       </article>
 
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>App health</h3>
+            <p class="muted">Focus checks storage, links between targets and entries, dates and cached app versions.</p>
+          </div>
+          <button id="runHealthCheckButton" class="button secondary small" type="button">Run check</button>
+        </div>
+        <div id="appHealth"></div>
+      </article>
+
       <article class="panel app-about">
         <h3>About</h3>
-        <p id="appVersionText" class="muted">Focus 2.3.0 · Local-first · No account or cloud database.</p><p id="dataStatus" class="small-meta"></p>
+        <p id="appVersionText" class="muted">Focus 3.1.0 · Data schema 4 · Local-first · No account or cloud database.</p><p id="dataStatus" class="small-meta"></p>
       </article>
     </section>
   </main>
@@ -196,6 +209,7 @@
           </label>
         </div>
         <div id="goalPreview" class="callout span-2"></div>
+        <div id="targetHistoryHint" class="history-recommendation span-2"></div>
         <fieldset class="span-2 segmented-fieldset">
           <legend>Include in top briefing</legend>
           <div class="segmented">
@@ -234,10 +248,15 @@
   <dialog id="contextDialog">
     <form id="contextForm" method="dialog">
       <div class="dialog-heading">
-        <div><p class="eyebrow">DAILY CONTEXT</p><h2>Three quick questions</h2></div>
+        <div><p class="eyebrow">DAILY CONTEXT</p><h2 id="contextDialogTitle">Today’s context</h2></div>
         <button class="icon-button" value="cancel" type="submit" aria-label="Close">×</button>
       </div>
-      <label class="context-date-label">Date<input id="contextDate" type="date" required></label>
+      <button id="anotherContextDateButton" class="text-button context-date-switch" type="button">Add or edit another date</button>
+      <label id="contextDateWrap" class="context-date-label hidden">Date<input id="contextDate" type="date" required></label>
+      <div id="afterMidnightNotice" class="context-date-notice hidden" role="status">
+        <div><strong>It’s after midnight.</strong><span id="afterMidnightNoticeText"></span></div>
+        <button id="useTodayContextButton" class="text-button" type="button"></button>
+      </div>
       <fieldset class="option-fieldset">
         <legend>How stressful was work?</legend>
         <div class="option-grid" id="stressOptions">
@@ -248,12 +267,14 @@
           <label><input type="radio" name="stress" value="extreme"><span>Extreme</span></label>
         </div>
       </fieldset>
-      <label>Approximate UK alcohol units
-        <input id="alcoholUnits" type="number" min="0" max="100" step="0.1" inputmode="decimal" placeholder="0">
+      <label>UK alcohol units
+        <div class="number-stepper">
+          <button type="button" data-alcohol-step="-0.5" aria-label="Reduce alcohol by half a unit">−</button>
+          <input id="alcoholUnits" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0">
+          <button type="button" data-alcohol-step="0.5" aria-label="Add half an alcohol unit">＋</button>
+        </div>
       </label>
-      <div class="quick-units" aria-label="Quick alcohol unit choices">
-        <button type="button" data-units="0">0</button><button type="button" data-units="2">2</button><button type="button" data-units="4">4</button><button type="button" data-units="6">6</button>
-      </div>
+      <p class="field-help">Enter the best estimate you can, including decimals. The exact number is retained for analysis.</p>
       <fieldset class="option-fieldset">
         <legend>How well were you?</legend>
         <div class="option-grid" id="illnessOptions">
@@ -263,7 +284,15 @@
           <label><input type="radio" name="illness" value="significant"><span>Significantly ill</span></label>
         </div>
       </fieldset>
-      <p class="callout">The app looks for associations, not proof of cause. It waits for enough observations before drawing attention to a pattern.</p>
+      <div class="bedtime-field">
+        <label>What time did you get into bed for the night?
+          <div class="time-entry-row">
+            <input id="bedtime" type="time" step="60">
+            <button id="useCurrentTimeButton" class="button secondary" type="button">Use current time</button>
+          </div>
+        </label>
+        <p class="field-help">Optional. For a bedtime after midnight, keep the date as the evening it followed — for example, 00:20 after Wednesday belongs to Wednesday.</p>
+      </div>
       <div class="form-actions">
         <button class="button primary" value="default" type="submit">Save context</button>
         <button class="button secondary" value="cancel" type="submit">Cancel</button>
@@ -298,12 +327,42 @@
     </form>
   </dialog>
 
+
+  <dialog id="recommendationDialog" class="wide-dialog">
+    <form method="dialog">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">NEXT FOCUS</p><h2>Target recommendations</h2></div>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close">×</button>
+      </div>
+      <p class="muted">Focus uses completed periods to show what has been sustainable, then lets you choose how ambitious to be next.</p>
+      <div id="recommendationList" class="recommendation-list"></div>
+      <div class="form-actions"><button class="button secondary" value="cancel" type="submit">Close</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="periodReviewDialog" class="wide-dialog">
+    <form method="dialog">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">FOCUS REVIEW</p><h2 id="periodReviewTitle">Period review</h2></div>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close">×</button>
+      </div>
+      <div id="periodReviewContent" class="review-list"></div>
+      <div class="form-actions"><button class="button secondary" value="cancel" type="submit">Close</button></div>
+    </form>
+  </dialog>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script>
     // Register a uniquely named service worker before the main app loads.
     // This breaks out of stale Version 1 caches that can otherwise pair new HTML with old JavaScript.
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./service-worker-v2-3.js").catch(console.error);
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+      navigator.serviceWorker.register("./service-worker-v3-1.js", { updateViaCache: "none" }).catch(console.error);
     }
 
     window.addEventListener("error", () => {
@@ -318,6 +377,6 @@
       }
     }, 3500);
   </script>
-  <script src="./app-v2-3.js"></script>
+  <script src="./app-v3-1.js"></script>
 </body>
 </html>
