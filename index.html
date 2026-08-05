@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f6f3eb">
   <meta name="description" content="A calm personal target tracker with themes, context insights and local recovery backups.">
-  <meta name="focus-app-version" content="3.1.0">
+  <meta name="focus-app-version" content="3.2.0">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <link rel="stylesheet" href="./styles-v3-1.css">
+  <link rel="stylesheet" href="./styles-v3-2.css">
   <title>Focus</title>
 </head>
 <body>
@@ -31,8 +31,8 @@
         <button type="button" onclick="location.reload()">Reload Focus</button>
       </div>
       <div id="briefingCard"></div>
-      <div id="focusMeta" class="focus-meta"></div>
       <div id="dailyContextCard"></div>
+      <div id="focusMeta" class="focus-meta"></div>
       <div id="themeSections"></div>
     </section>
 
@@ -158,7 +158,7 @@
 
       <article class="panel app-about">
         <h3>About</h3>
-        <p id="appVersionText" class="muted">Focus 3.1.0 · Data schema 4 · Local-first · No account or cloud database.</p><p id="dataStatus" class="small-meta"></p>
+        <p id="appVersionText" class="muted">Focus 3.2.0 · Data schema 4 · Local-first · No account or cloud database.</p><p id="dataStatus" class="small-meta"></p>
       </article>
     </section>
   </main>
@@ -279,9 +279,10 @@
         <legend>How well were you?</legend>
         <div class="option-grid" id="illnessOptions">
           <label><input type="radio" name="illness" value="well"><span>Well</span></label>
-          <label><input type="radio" name="illness" value="mild"><span>Mild symptoms</span></label>
-          <label><input type="radio" name="illness" value="reduced"><span>Ill — activity reduced</span></label>
-          <label><input type="radio" name="illness" value="significant"><span>Significantly ill</span></label>
+          <label><input type="radio" name="illness" value="low_level"><span>Low-level illness</span></label>
+          <label><input type="radio" name="illness" value="mild"><span>Mildly ill</span></label>
+          <label><input type="radio" name="illness" value="reduced"><span>Ill — activity affected</span></label>
+          <label><input type="radio" name="illness" value="significant"><span>Very ill</span></label>
         </div>
       </fieldset>
       <div class="bedtime-field">
@@ -362,7 +363,7 @@
         refreshing = true;
         window.location.reload();
       });
-      navigator.serviceWorker.register("./service-worker-v3-1.js", { updateViaCache: "none" }).catch(console.error);
+      navigator.serviceWorker.register("./service-worker-v3-2.js", { updateViaCache: "none" }).catch(console.error);
     }
 
     window.addEventListener("error", () => {
@@ -377,6 +378,6 @@
       }
     }, 3500);
   </script>
-  <script src="./app-v3-1.js"></script>
+  <script src="./app-v3-2.js"></script>
 </body>
 </html>

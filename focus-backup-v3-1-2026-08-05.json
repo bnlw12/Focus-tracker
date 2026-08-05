@@ -1,0 +1,470 @@
+{
+  "version": 4,
+  "appVersion": "3.1.0",
+  "currentFocus": {
+    "id": "focus-mrzl0r91-au8pu3",
+    "name": "Summer",
+    "start": "2026-07-29",
+    "end": "2026-08-20"
+  },
+  "focusHistory": [],
+  "themes": [
+    {
+      "id": "health",
+      "name": "Health",
+      "icon": "♡",
+      "colour": "green",
+      "builtIn": true
+    },
+    {
+      "id": "personal",
+      "name": "Personal",
+      "icon": "○",
+      "colour": "plum",
+      "builtIn": true
+    },
+    {
+      "id": "work",
+      "name": "Work",
+      "icon": "▣",
+      "colour": "blue",
+      "builtIn": true
+    }
+  ],
+  "targets": [
+    {
+      "briefingMode": "auto",
+      "active": true,
+      "frequencyUnit": "week",
+      "themeId": "health",
+      "createdAt": "2026-07-25",
+      "id": "target-mrzl0r91-6toadb",
+      "name": "Floss",
+      "emoji": "🦷",
+      "goalMode": "frequency",
+      "goalValue": 4
+    },
+    {
+      "briefingMode": "auto",
+      "active": true,
+      "frequencyUnit": "week",
+      "themeId": "health",
+      "createdAt": "2026-07-25",
+      "id": "target-mrzl0r91-v6vkbh",
+      "name": "Hip physio",
+      "emoji": "🥎",
+      "goalMode": "period",
+      "goalValue": 10
+    },
+    {
+      "briefingMode": "always",
+      "active": true,
+      "frequencyUnit": "week",
+      "themeId": "health",
+      "createdAt": "2026-07-25",
+      "id": "target-mrzl0r91-wrz7sd",
+      "name": "Eat well",
+      "emoji": "🥗",
+      "goalMode": "period",
+      "goalValue": 8
+    },
+    {
+      "briefingMode": "auto",
+      "active": true,
+      "frequencyUnit": "week",
+      "themeId": "health",
+      "createdAt": "2026-07-25",
+      "id": "target-mrzl0r91-5j6mpm",
+      "name": "Not bad eating",
+      "emoji": "🎂",
+      "goalMode": "period",
+      "goalValue": 8
+    },
+    {
+      "briefingMode": "auto",
+      "active": true,
+      "frequencyUnit": "week",
+      "themeId": "health",
+      "createdAt": "2026-07-26",
+      "id": "target-ms1mf4a7-idjqf2",
+      "name": "Calf raises",
+      "emoji": "🦵",
+      "goalMode": "period",
+      "goalValue": 10
+    },
+    {
+      "briefingMode": "auto",
+      "active": true,
+      "frequencyUnit": "week",
+      "themeId": "health",
+      "createdAt": "2026-07-26",
+      "id": "target-ms1mi43e-hf5maa",
+      "name": "Cardio",
+      "emoji": "🏃",
+      "goalMode": "period",
+      "goalValue": 5
+    },
+    {
+      "briefingMode": "auto",
+      "active": true,
+      "frequencyUnit": "week",
+      "themeId": "health",
+      "createdAt": "2026-07-26",
+      "id": "target-ms1mj0wc-srcbyg",
+      "name": "Strength",
+      "emoji": "🏋️",
+      "goalMode": "period",
+      "goalValue": 5
+    }
+  ],
+  "events": [
+    {
+      "id": "event-ms1m9x9c-ikgkqf",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:49:56.256Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1m9zrx-yggmgl",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:49:59.517Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1ma0a6-k1arfd",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:50:00.174Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1ma0p1-enuzk6",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:50:00.709Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1ma667-fde1ob",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:50:07.807Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1map11-vk1w7l",
+      "targetId": "target-mrzl0r91-v6vkbh",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:50:32.245Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mk9tk-85wx7r",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:57:59.096Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkimj-py7gph",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:10.507Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkiv2-8ibvv4",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:10.814Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkiyw-999yyb",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:10.952Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkj31-k0pcwn",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:11.101Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkj77-bl33ab",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:11.251Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkja7-6enhcv",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:11.359Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkllm-hommau",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:14.362Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkm04-a0o0wg",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:14.884Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mkmdq-o5otnj",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:15.374Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1ml0pm-hg9ktq",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:58:33.946Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1mllg7-5lxmqm",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T09:59:00.823Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1pfd0a-xhptvt",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T11:18:08.794Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms1pfhkx-p4k5pa",
+      "targetId": "target-mrzl0r91-6toadb",
+      "date": "2026-07-26",
+      "createdAt": "2026-07-26T11:18:14.721Z",
+      "focusId": ""
+    },
+    {
+      "id": "event-ms6nbp44-qxogpa",
+      "targetId": "target-mrzl0r91-6toadb",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-07-29",
+      "createdAt": "2026-07-29T22:18:09.509Z"
+    },
+    {
+      "id": "event-ms6nbq1j-zz0zxq",
+      "targetId": "target-mrzl0r91-v6vkbh",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-07-29",
+      "createdAt": "2026-07-29T22:18:10.711Z"
+    },
+    {
+      "id": "event-ms6nbrhe-s4vmpa",
+      "targetId": "target-mrzl0r91-wrz7sd",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-07-29",
+      "createdAt": "2026-07-29T22:18:12.578Z"
+    },
+    {
+      "id": "event-ms6nbss1-xebrc1",
+      "targetId": "target-ms1mf4a7-idjqf2",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-07-29",
+      "createdAt": "2026-07-29T22:18:14.257Z"
+    },
+    {
+      "id": "event-ms829l0w-sbwxz0",
+      "targetId": "target-mrzl0r91-6toadb",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-07-30",
+      "createdAt": "2026-07-30T22:04:11.312Z"
+    },
+    {
+      "id": "event-ms829q7l-yyn32v",
+      "targetId": "target-mrzl0r91-5j6mpm",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-07-30",
+      "createdAt": "2026-07-30T22:04:18.033Z"
+    },
+    {
+      "id": "event-msaxqwpl-h94o9q",
+      "targetId": "target-mrzl0r91-6toadb",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-01",
+      "createdAt": "2026-08-01T22:21:00.057Z"
+    },
+    {
+      "id": "event-msaxqzst-xth7so",
+      "targetId": "target-mrzl0r91-wrz7sd",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-01",
+      "createdAt": "2026-08-01T22:21:04.061Z"
+    },
+    {
+      "id": "event-msaxr1ha-q8xpbr",
+      "targetId": "target-ms1mf4a7-idjqf2",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-01",
+      "createdAt": "2026-08-01T22:21:06.238Z"
+    },
+    {
+      "id": "event-msccivm1-f8bv34",
+      "targetId": "target-mrzl0r91-6toadb",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-02",
+      "createdAt": "2026-08-02T22:02:25.801Z"
+    },
+    {
+      "id": "event-msccj4hb-g3ghyt",
+      "targetId": "target-mrzl0r91-wrz7sd",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-02",
+      "createdAt": "2026-08-02T22:02:37.295Z"
+    },
+    {
+      "id": "event-msccj69i-wr8mly",
+      "targetId": "target-ms1mf4a7-idjqf2",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-02",
+      "createdAt": "2026-08-02T22:02:39.606Z"
+    },
+    {
+      "id": "event-msdq6gr6-43u4lr",
+      "targetId": "target-mrzl0r91-6toadb",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-03",
+      "createdAt": "2026-08-03T21:12:27.475Z"
+    },
+    {
+      "id": "event-msdq6k36-ive7ue",
+      "targetId": "target-mrzl0r91-wrz7sd",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-03",
+      "createdAt": "2026-08-03T21:12:31.794Z"
+    },
+    {
+      "id": "event-msdq6ne6-w28ykp",
+      "targetId": "target-ms1mi43e-hf5maa",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-03",
+      "createdAt": "2026-08-03T21:12:36.078Z"
+    },
+    {
+      "id": "event-msf8oc1m-wzhr77",
+      "targetId": "target-mrzl0r91-6toadb",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T22:38:00.442Z"
+    },
+    {
+      "id": "event-msf8odlq-oa7uv1",
+      "targetId": "target-mrzl0r91-v6vkbh",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T22:38:02.462Z"
+    },
+    {
+      "id": "event-msf8ofze-qauo4q",
+      "targetId": "target-mrzl0r91-5j6mpm",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T22:38:05.546Z"
+    },
+    {
+      "id": "event-msf8oj98-ksi1rv",
+      "targetId": "target-ms1mi43e-hf5maa",
+      "focusId": "focus-mrzl0r91-au8pu3",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T22:38:09.788Z"
+    }
+  ],
+  "contextEntries": [
+    {
+      "id": "context-ms6nbo0i-we7x5x",
+      "date": "2026-07-29",
+      "createdAt": "2026-07-29T22:18:08.082Z",
+      "stress": "low",
+      "alcoholUnits": 0,
+      "illness": "well",
+      "bedtime": "23:10",
+      "updatedAt": "2026-07-29T22:18:08.082Z"
+    },
+    {
+      "id": "context-ms9hkj2h-ux4dgw",
+      "date": "2026-07-31",
+      "createdAt": "2026-07-31T22:00:22.409Z",
+      "stress": "manageable",
+      "alcoholUnits": 5.6,
+      "illness": "well",
+      "bedtime": "23:00",
+      "updatedAt": "2026-07-31T22:00:22.409Z"
+    },
+    {
+      "id": "context-mscckpar-znh3bl",
+      "date": "2026-08-01",
+      "createdAt": "2026-08-02T22:03:50.931Z",
+      "stress": "not_workday",
+      "alcoholUnits": 0,
+      "illness": "well",
+      "bedtime": "23:03",
+      "updatedAt": "2026-08-02T22:03:50.931Z"
+    },
+    {
+      "id": "context-mscck8pd-8rkf6d",
+      "date": "2026-08-02",
+      "createdAt": "2026-08-02T22:03:29.425Z",
+      "stress": "not_workday",
+      "alcoholUnits": 0,
+      "illness": "well",
+      "bedtime": "23:03",
+      "updatedAt": "2026-08-02T22:03:29.425Z"
+    },
+    {
+      "id": "context-msdq6fm7-955a1w",
+      "date": "2026-08-03",
+      "createdAt": "2026-08-03T21:12:25.999Z",
+      "stress": "low",
+      "alcoholUnits": 0,
+      "illness": "well",
+      "bedtime": "22:12",
+      "updatedAt": "2026-08-03T21:12:25.999Z"
+    },
+    {
+      "id": "context-msf8o9s8-6x3npr",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T22:37:57.512Z",
+      "stress": "manageable",
+      "alcoholUnits": 1.8,
+      "illness": "well",
+      "bedtime": "23:37",
+      "updatedAt": "2026-08-04T22:37:57.512Z"
+    }
+  ],
+  "settings": {
+    "briefingThreshold": 5,
+    "contextEnabled": true,
+    "analysisTargetId": "target-mrzl0r91-5j6mpm",
+    "collapsedThemes": []
+  },
+  "meta": {
+    "migratedAt": "2026-07-26T09:49:16.648Z",
+    "lastExportAt": "2026-08-05T21:19:32.691Z",
+    "persistentStorage": null,
+    "lastHealthCheckAt": null
+  },
+  "exportedAt": "2026-08-05T21:19:32.691Z"
+}
